@@ -1,47 +1,67 @@
 let nomes = [];
 let senhas = [];
 let contador = 0;
-let confirma = true;
-let baseConfirma = true;
+let continuar = true;
 
-do {
+while (continuar) {
   let solicitacao = prompt(
     'O que deseja fazer? \n1 - Cadastrar \n2 - Login \n3 - Excluir cadastro \n4 - Encerrar programa'
   );
 
   switch (solicitacao) {
     case '1':
-      while (confirma) {
-        let user = prompt('Criar Usuário');
-        let passw = prompt('Criar senha');
-        let encerrar = prompt('Deseja encerrar o programa? (s/n)');
+      //Criando usuário
+      nomes[contador] = prompt('Criar Usuário');
+      senhas[contador] = prompt('Criar senha');
 
-        nomes[contador] = user;
-        senhas[contador] = passw;
+      contador++;
 
-        contador++;
-
-        if (encerrar == 's') {
-          confirma = false;
-          console.log('Cadastro realizado com sucesso!');
-        }
-      }
       break;
     case '2':
-      while (confirma) {
-        user = prompt('Digite seu usuário');
-        passw = prompt('Digite sua senha');
-        if (nomes.includes(user) && senhas.includes(passw)) {
-          confirma = false;
-          console.log(`Login realizado com sucesso!`);
-        } else {
-          encerrar = prompt(
-            'Usuário ou senha não corresponde, deseja continuar? (s/n)'
-          );
-          if (encerrar !== 's') {
-            confirma = false;
-          }
+      //Fazendo login
+      let nome = prompt('Digite seu usuário');
+      let senha = prompt('Digite sua senha');
+      let loginValido = false;
+
+      for (let i = 0; i < nomes.length; i++) {
+        if (nome == nomes[i] && senha == senhas[i]) {
+          loginValido = true;
         }
       }
+
+      if (loginValido) {
+        alert('Login realizado com sucesso. Bem-vindo!');
+      } else {
+        alert('Login ou senha incorretos');
+      }
+      break;
+    case '3':
+      //Excluindo usuario
+      let nomeExcluir = prompt('Qual o usuario que deseja excluir?');
+      let nomesAux = [];
+      let senhasAux = [];
+      let contadorAux = 0;
+
+      for (let i = 0; i < contador; i++) {
+        if (nomeExcluir == nomes[i]) {
+          alert('Cadastro excluído com sucesso');
+        } else {
+          nomesAux[contadorAux] = nomes[i];
+          senhasAux[contadorAux] = senhas[i];
+          contadorAux++;
+        }
+      }
+
+      nomes = nomesAux;
+      senhas = senhasAux;
+      contador--;
+
+      break;
+    case '4':
+      continuar = false;
+      break;
+    default:
+      console.log('Opção invalida, escolha outra!');
+      break;
   }
-} while (baseConfirma);
+}
