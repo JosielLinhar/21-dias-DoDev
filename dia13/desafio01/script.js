@@ -1,17 +1,24 @@
 class Computador {
-  tipo;
-  processador;
-  video;
-  armazenamento;
-  memoriaRam;
-  ssd;
+  Tipo;
+  Processador;
+  Video;
+  Armazenamento;
+  MemoriaRam;
+  Ssd;
   constructor(tipo, processador, video, armazenamento, memoriaRam, ssd) {
-    this.tipo = tipo;
-    this.processador = processador;
-    this.video = video;
-    this.armazenamento = armazenamento;
-    this.memoriaRam = memoriaRam;
-    this.ssd = ssd;
+    this.Tipo = tipo;
+    this.Processador = processador;
+    this.Video = video;
+    this.Armazenamento = armazenamento;
+    this.MemoriaRam = memoriaRam;
+    this.Ssd = ssd;
+  }
+
+  Exibir() {
+    console.log('Informações do computador');
+    console.log(
+      `${this.Tipo}, ${this.Processador}, ${this.Video}, ${this.Armazenamento}, ${this.MemoriaRam}, ${this.Ssd}`
+    );
   }
 }
 
@@ -49,7 +56,7 @@ while (continuar) {
 
   computadores[index] = meuComputador;
   index++;
-
+  meuComputador.Exibir();
   let prosseguir = prompt('Deseja cadastrar outro computador? (s/n)');
 
   if (prosseguir != 's') {
