@@ -127,11 +127,27 @@ function pesquisaReservas() {
   }
 }
 
+function pesquisaHoteis() {
+  let categorias = [];
+  let informeCategoria = prompt("Informe a categoria do Hotel");
+
+  let categoriasHotel = hoteis.filter((x) => x.Categoria == informeCategoria);
+
+  if (categoriasHotel == 0) {
+    console.log(`Nenhum hotel encontrado na categoria ${informeCategoria}`);
+  } else {
+    categoriasHotel.forEach((x) => categorias.push(x.Nome));
+
+    console.log(`Hoteis na categoria ${informeCategoria}`);
+    console.log(categorias);
+  }
+}
+
 let continua = true;
 
 while (continua) {
   let informe = prompt(
-    "O que deseja fazer? \n1 - Cadastrar hotel \n2 - Fazer uma reserva \n3 - Filtrar reservas pelo ID de hotel \n4 - Filtrar reservas pelo ID de reserva \n5 - Ver suas reservas"
+    "O que deseja fazer? \n1 - Cadastrar hotel \n2 - Fazer uma reserva \n3 - Filtrar reservas pelo ID de hotel \n4 - Filtrar reservas pelo ID de reserva \n5 - Ver suas reservas \n6 - Pesquise hoteis por categoria"
   );
 
   switch (informe) {
@@ -149,6 +165,9 @@ while (continua) {
       break;
     case "5":
       pesquisaReservas();
+      break;
+    case "6":
+      pesquisaHoteis();
       break;
     default:
       continua = false;
