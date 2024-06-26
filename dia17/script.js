@@ -73,27 +73,65 @@ function cadReservas() {
 
 function idReservas() {
   let id = parseInt(prompt("Informe o id do hotel"));
+  let hotelEncontrado = hoteis.find((x) => x.Id == id);
 
-  hoteis.forEach((x) => {
-    if (x.Id == id) {
-      console.log(`Hotel: ${x.Nome}`);
-    }
-  });
+  if (hotelEncontrado) {
+    console.log(`Nome do Hotel: ${hotelEncontrado.Nome}`);
 
-  reservas.forEach((x) => {
-    if (x.IdHotel == id) {
-      console.log(
-        `Responsável: ${x.Responsavel}, Entrada: ${x.Entrada}, Saida: ${x.Saida}`
-      );
+    reservas.forEach((j) => {
+      if (j.IdHotel == id) {
+        console.log(
+          `Responsável: ${j.Responsavel}, dia de Entrada: ${j.Entrada}, dia de Saída: ${j.Saida}`
+        );
+      }
+    });
+  } else {
+    console.log(`Nenhum hotel foi encontrado com o ID ${id}`);
+  }
+}
+
+function retornaHotel() {
+  let idReserva = parseInt(prompt("Informe o id da sua reserva"));
+
+  let retornaID = reservas.find((x) => x.Id == idReserva);
+
+  if (retornaID) {
+    let retornaHotel = hoteis.find((x) => x.Id == retornaID.Id);
+
+    if (retornaHotel) {
+      console.log(`Nome do Hotel: ${retornaHotel.Nome}`);
+      console.log(`Endereço: ${retornaHotel.Endereco}`);
+      console.log(`Dia de entrada: ${retornaID.Entrada}`);
+      console.log(`Dia de saída: ${retornaID.Saida}`);
+    } else {
+      console.log(`Nenhum hotel encontrado com o ID ${idReserva}`);
     }
-  });
+  } else {
+    console.log(`Nehuma reserva encontrada com o ID ${idReserva}`);
+  }
+}
+
+function pesquisaReservas() {
+  let nome = prompt("Informe o nome da reserva");
+
+  let reservasCad = reservas.filter((x) => x.Responsavel == nome);
+
+  if (reservasCad && reservasCad.length > 0) {
+    console.log(`Você tem ${reservasCad.length} reservas`);
+
+    for (let i = 0; i < reservasCad.length; i++) {
+      console.log(reservasCad[i]);
+    }
+  } else {
+    console.log(`Nenhuma reserva encontrada para ${nome}`);
+  }
 }
 
 let continua = true;
 
 while (continua) {
   let informe = prompt(
-    "O que deseja fazer? \n1 - Cadastrar hotel \n2 - Fazer uma reserva \n3 - Filtrar reservas por hotel"
+    "O que deseja fazer? \n1 - Cadastrar hotel \n2 - Fazer uma reserva \n3 - Filtrar reservas pelo ID de hotel \n4 - Filtrar reservas pelo ID de reserva \n5 - Ver suas reservas"
   );
 
   switch (informe) {
@@ -105,6 +143,12 @@ while (continua) {
       break;
     case "3":
       idReservas();
+      break;
+    case "4":
+      retornaHotel();
+      break;
+    case "5":
+      pesquisaReservas();
       break;
     default:
       continua = false;
